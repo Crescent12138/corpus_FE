@@ -1,17 +1,22 @@
 <script setup>
-import  Table  from '../views/PersonQuery.vue'
-
+import  Desc  from '../views/RuleDescription.vue'
 </script>
-
 <template>
     <div>
         <el-container>
-  <el-header>语言经验和汉语水平问卷</el-header>
-  <el-main><Table></Table></el-main>
-  <el-footer>Footer</el-footer>
-</el-container>
+            <el-header>试题规则介绍</el-header>
+            <el-main>
+                <div style="display: flex; justify-content: center; align-items: center;">
+                    <Desc></Desc>
+                </div>
+                
+                <!-- <Table></Table> -->
+            </el-main>
+            <el-footer>Footer</el-footer>
+        </el-container>
     </div>
 </template>
+
 <style>
   .el-header, .el-footer {
     background-color: #B3C0D1;

@@ -29,7 +29,7 @@
       <el-row>
         <el-col :span="11">
           <el-form-item label="出生日期">
-            <el-date-picker v-model="form.date1" type="date" placeholder="选择日期" style="width: 60%;float: left;">
+            <el-date-picker v-model="form.bitrhday" type="date" placeholder="选择日期" style="width: 60%;float: left;">
             </el-date-picker>
           </el-form-item>
         </el-col>
@@ -52,7 +52,7 @@
         </el-col>
         <el-col :span="11">
           <el-form-item label="来中国时间">
-            <el-date-picker v-model="form.date2" type="date" placeholder="选择日期" style="width: 60%;float: left;">
+            <el-date-picker v-model="form.come_to_china" type="date" placeholder="选择日期" style="width: 60%;float: left;">
             </el-date-picker>
           </el-form-item>
         </el-col>
@@ -65,8 +65,8 @@
         </el-col>
         <el-col :span="11">
           <el-form-item label="教育程度">
-            <el-select v-model="value7" placeholder="请选择" style="width: 60%;float: left;">
-              <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
+            <el-select v-model="form.academic_credentials" placeholder="请选择" style="width: 60%;float: left;">
+              <el-option v-for="item in education_credentials_option" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
           </el-form-item>
@@ -93,8 +93,8 @@
       <el-row>
         <el-col :span="11">
           <el-form-item label="习得顺序" label-width="auto">
-            <el-select v-model="value1" multiple placeholder="请选择" style="width: 60%;float: left;">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+            <el-select v-model="form.order_language_list" multiple placeholder="请选择" style="width: 60%;float: left;">
+              <el-option v-for="item in language_list_option" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
           </el-form-item>
@@ -103,8 +103,8 @@
         <el-col :span="11">
           <!-- <p>（2）请按习得顺序列出您所掌握的所有语言：</p> -->
           <el-form-item label="主次顺序" label-width="auto">
-            <el-select v-model="value2" multiple placeholder="请选择" style="width: 60%;float: left;">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+            <el-select v-model="form.learned_language_list" multiple placeholder="请选择" style="width: 60%;float: left;">
+              <el-option v-for="item in language_list_option" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
           </el-form-item>
@@ -120,9 +120,9 @@
               <el-form-item label="" label-position="left">
                 <br />
                 <el-checkbox-group v-model="selectedOptions">
-                  <el-form-item v-for="(option, index) in value1" :key="option" :label="option">
+                  <el-form-item v-for="(option, index) in form.order_language_list" :key="option" :label="option">
                     <br />
-                    <el-slider v-model="value3[index]" style="width: 60%;float: left;"></el-slider>
+                    <el-slider v-model="form.touch_language_list[index]" style="width: 60%;float: left;"></el-slider>
                   </el-form-item>
                   <!-- <el-checkbox v-for="(option, index) in value1" :key="index" :label="option"></el-checkbox> -->
                 </el-checkbox-group>
@@ -141,9 +141,9 @@
               <el-form-item label="" label-position="left">
                 <br />
                 <el-checkbox-group v-model="selectedOptions">
-                  <el-form-item v-for="(option, index) in value1" :key="option" :label="option">
+                  <el-form-item v-for="(option, index) in form.order_language_list" :key="option" :label="option">
                     <br />
-                    <el-slider v-model="value4[index]" style="width: 60%;float: left;"></el-slider>
+                    <el-slider v-model="form.map_read_language_percent[index]" style="width: 60%;float: left;"></el-slider>
                   </el-form-item>
                   <!-- <el-checkbox v-for="(option, index) in value1" :key="index" :label="option"></el-checkbox> -->
                 </el-checkbox-group>
@@ -162,9 +162,9 @@
               <el-form-item label="" label-position="left">
                 <br />
                 <el-checkbox-group v-model="selectedOptions">
-                  <el-form-item v-for="(option, index) in value1" :key="option" :label="option">
+                  <el-form-item v-for="(option, index) in form.order_language_list" :key="option" :label="option">
                     <br />
-                    <el-slider v-model="value5[index]" style="width: 60%;float: left;"></el-slider>
+                    <el-slider v-model="form.map_interacton_language_percent[index]" style="width: 60%;float: left;"></el-slider>
                   </el-form-item>
                   <!-- <el-checkbox v-for="(option, index) in value1" :key="index" :label="option"></el-checkbox> -->
                 </el-checkbox-group>
@@ -183,10 +183,10 @@
             <el-form-item label="" label-position="left">
               <br />
               <el-checkbox-group v-model="selectedOptions">
-                <el-form-item v-for="(option, index) in value6" :key="option.key">
+                <el-form-item v-for="(option, index) in form.map_cultural_identity_percent" :key="option.key">
                   <el-col :span="4">
-                    <el-select v-model="value6[index].key" placeholder="请选择">
-                      <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value">
+                    <el-select v-model="form.map_cultural_identity_percent[index].key" placeholder="请选择">
+                      <el-option v-for="item in culturalidentity_percent_option" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
                   </el-col>
@@ -194,7 +194,7 @@
                     <div>&nbsp;</div>
                   </el-col>
                   <el-col :span="14">
-                    <el-slider v-model="value6[index].val" style="width: 60%;float: left;" :step="1" show-stops
+                    <el-slider v-model="form.map_cultural_identity_percent[index].val" style="width: 60%;float: left;" :step="1" show-stops
                       max="10"></el-slider>
                   </el-col>
                 </el-form-item>
@@ -229,35 +229,35 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="您从几岁开始学汉语？" label-width="160px">
-              <el-input v-model="form.learn_chinese_age" style="width:140px ;float: left;" />
+              <el-input v-model="form.learning_chinese_age" type = "number" style="width:140px ;float: left;" />
 
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item label="您学了几年汉语？" label-width="160px">
-              <el-input v-model="form.learn_chinese_time" style="width:140px ;float: left;" />
+              <el-input v-model="form.learn_chinese_time" type = "number" style="width:140px ;float: left;" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="6">
             <el-form-item label="几岁开始学习口语" label-width="160px">
-              <el-input v-model="form.oral_age" style="width:140px ;float: left;" />
+              <el-input v-model="form.oral_age" type = "number" style="width:140px ;float: left;" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="几岁说得流畅" label-width="160px">
-              <el-input v-model="form.talk_well_age" style="width:140px ;float: left;" />
+              <el-input v-model="form.talk_well_age" type = "number" style="width:140px ;float: left;" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="几岁开始学习阅读" label-width="160px">
-              <el-input v-model="form.learning_read_age" style="width:140px ;float: left;" />
+              <el-input v-model="form.learning_read_age" type = "number" style="width:140px ;float: left;" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="几岁读的流畅" label-width="160px">
-              <el-input v-model="form.read_well_age" style="width:140px ;float: left;" />
+              <el-input v-model="form.read_well_age" type = "number" style="width:140px ;float: left;" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -267,32 +267,32 @@
         <el-row>
           <el-col :span="4">
             <el-form-item label="使用汉语的国家" label-width="160px">
-              <el-input v-model="form.chinese_country_year" placeholder="年" style="width:140px ;float: left;" />
+              <el-input v-model="form.chinese_country_year" placeholder="年" type = "number" style="width:140px ;float: left;" />
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item label="" label-width="0px">
-              <el-input v-model="form.chinese_country_month" placeholder="月" style="width:140px ;float: left;" />
+              <el-input v-model="form.chinese_country_month" placeholder="月" type = "number" style="width:140px ;float: left;" />
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item label="使用汉语的家庭" label-width="160px">
-              <el-input v-model="form.chinese_family_year" placeholder="年" style="width:140px ;float: left;" />
+              <el-input v-model="form.chinese_family_year" placeholder="年" type = "number" style="width:140px ;float: left;" />
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item label="" label-width="0px">
-              <el-input v-model="form.chinese_family_month" placeholder="月" style="width:140px ;float: left;" />
+              <el-input v-model="form.chinese_family_month" placeholder="月" type = "number" style="width:140px ;float: left;" />
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item label="使用汉语的学校" label-width="160px">
-              <el-input v-model="form.chinese_school_year" placeholder="年" style="width:140px ;float: left;" />
+              <el-input v-model="form.chinese_school_year" placeholder="年" type = "number" style="width:140px ;float: left;" />
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item label="" label-width="0px">
-              <el-input v-model="form.chinese_school_month" placeholder="月" style="width:140px ;float: left;" />
+              <el-input v-model="form.chinese_school_month" placeholder="月" type = "number" style="width:140px ;float: left;" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -301,8 +301,140 @@
         </h1>
         <el-row>
           <el-col :span="20">
-            <el-form-item label="口语" label-width="300px">
-              <el-slider v-model="form.chinese_oral"  :marks="marks" max="10" style="width: 80%;float: left;"/>
+            <el-form-item label-width="30px">
+              <div style="display: flex; align-items: center;">
+                <span style="font-weight: bold; font-size: 20px; font-family: SimSun; width: 200px;">口语：</span>
+                <el-slider v-model="form.chinese_oral" :marks="marks" max="10" style="margin-left: 10px; flex: 1;" />
+              </div>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label-width="30px">
+              <div style="display: flex; align-items: center;">
+                <span style="font-weight: bold; font-size: 20px; font-family: SimSun; width: 200px;">理解口语：</span>
+                <el-slider v-model="form.understand_chinese_oral" :marks="marks" max="10" style="margin-left: 10px; flex: 1;" />
+              </div>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label-width="30px">
+              <div style="display: flex; align-items: center;">
+                <span style="font-weight: bold; font-size: 20px; font-family: SimSun; width: 200px;">阅读：</span>
+                <el-slider v-model="form.read_chinese" :marks="marks" max="10" style="margin-left: 10px; flex: 1;" />
+              </div>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+
+
+        <h1 style="text-align: left; font-weight: bold; font-family: SimSun">
+          请在1-10的范围内，标出下列因素对您学习汉语的促进效果：
+        </h1>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label-width="30px">
+              <div style="display: flex; align-items: center;">
+                <span style="font-weight: bold; font-size: 20px; font-family: SimSun; width: 200px;">与朋友交流互动：</span>
+                <el-slider v-model="form.promote[0]" :marks="marks2" max="10" style="margin-left: 10px; flex: 1;" />
+              </div>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label-width="30px">
+              <div style="display: flex; align-items: center;">
+                <span style="font-weight: bold; font-size: 20px; font-family: SimSun; width: 200px;">与家庭交流互动:</span>
+                <el-slider v-model="form.promote[1]" :marks="marks2" max="10" style="margin-left: 10px; flex: 1;" />
+              </div>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label-width="30px">
+              <div style="display: flex; align-items: center;">
+                <span style="font-weight: bold; font-size: 20px; font-family: SimSun; width: 200px;">汉语APP自学:</span>
+                <el-slider v-model="form.promote[2]" :marks="marks2" max="10" style="margin-left: 10px; flex: 1;" />
+              </div>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label-width="30px">
+              <div style="display: flex; align-items: center;">
+                <span style="font-weight: bold; font-size: 20px; font-family: SimSun; width: 200px;">看电视:</span>
+                <el-slider v-model="form.promote[3]" :marks="marks2" max="10" style="margin-left: 10px; flex: 1;" />
+              </div>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label-width="30px">
+              <div style="display: flex; align-items: center;">
+                <span style="font-weight: bold; font-size: 20px; font-family: SimSun; width: 200px;">听收音机:</span>
+                <el-slider v-model="form.promote[4]" :marks="marks2" max="10" style="margin-left: 10px; flex: 1;" />
+              </div>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <h1 style="text-align: left; font-weight: bold; font-family: SimSun">
+          请在1-10的范围内，标出您目前接触下列语境的频率：
+        </h1>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label-width="30px">
+              <div style="display: flex; align-items: center;">
+                <span style="font-weight: bold; font-size: 20px; font-family: SimSun; width: 200px;">与朋友交流互动：</span>
+                <el-slider v-model="form.frequency[0]" :marks="marks2" max="10" style="margin-left: 10px; flex: 1;" />
+              </div>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label-width="30px">
+              <div style="display: flex; align-items: center;">
+                <span style="font-weight: bold; font-size: 20px; font-family: SimSun; width: 200px;">与家庭交流互动:</span>
+                <el-slider v-model="form.frequency[1]" :marks="marks2" max="10" style="margin-left: 10px; flex: 1;" />
+              </div>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label-width="30px">
+              <div style="display: flex; align-items: center;">
+                <span style="font-weight: bold; font-size: 20px; font-family: SimSun; width: 200px;">汉语APP自学:</span>
+                <el-slider v-model="form.frequency[2]" :marks="marks2" max="10" style="margin-left: 10px; flex: 1;" />
+              </div>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label-width="30px">
+              <div style="display: flex; align-items: center;">
+                <span style="font-weight: bold; font-size: 20px; font-family: SimSun; width: 200px;">看电视:</span>
+                <el-slider v-model="form.frequency[3]" :marks="marks2" max="10" style="margin-left: 10px; flex: 1;" />
+              </div>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label-width="30px">
+              <div style="display: flex; align-items: center;">
+                <span style="font-weight: bold; font-size: 20px; font-family: SimSun; width: 200px;">听收音机:</span>
+                <el-slider v-model="form.frequency[4]" :marks="marks2" max="10" style="margin-left: 10px; flex: 1;" />
+              </div>
             </el-form-item>
           </el-col>
         </el-row>
@@ -321,42 +453,36 @@ import Heads from "../components/Head.vue";
 export default {
 
   data() {
+    
     return {
-      
-      marks: ({
-        0: '不会',
-        1: '很差',
-        2: '差',
-        3: "勉强",
-        4: "尚可",
-        5: {
-          style: {
-            color: '#1989FA',
-          },
-          label: '一般',
+      marks: ["不会", "很差", "差", "勉强", "尚可", "一般", "较好", "良好", "很好", "优秀", {
+        style: {
+          width: '100px'
         },
-        6: "较好",
-        7: "良好",
-        8: "很好",
-        9: "优秀",
-        10: "精通",
-      }),
+        label: "精通",
+      }],
+      marks2: ["毫无作用", "作用极小", "", "", "", "作用一般", "", "", "", "", {
+        style: {
+          width: '100px'
+        },
+        label: "作用极大",
+      }],
       checkList: [],
-      options: [
+      language_list_option: [
         { value: "英语", label: "英语" },
         { value: "汉语", label: "汉语" },
         { value: "日语", label: "日语" },
         { value: "俄语", label: "俄语" },
         { value: "法语", label: "法语" },
       ],
-      options2: [
+      education_credentials_option: [
         { value: "高中及以下", label: "高中及以下" },
         { value: "大专", label: "大专" },
         { value: "本科", label: "本科" },
         { value: "硕士", label: "硕士" },
         { value: "博士", label: "博士" },
       ],
-      options3: [
+      culturalidentity_percent_option: [
         { value: "中国文化", label: "中国文化" },
         { value: "美国文化", label: "美国文化" },
         { value: "基督文化", label: "基督文化" },
@@ -365,6 +491,55 @@ export default {
       ],
       form: {
         name: "",
+        age:"",
+        bitrhday:"",
+        birthplace:"",
+        sex:"",
+        country:"",
+        order_language_list   :[],
+        learned_language_list:[],
+        touch_language_list:[],
+        map_read_language_percent:[],
+        map_interacton_language_percent:[],
+        map_cultural_identity_percent:[],
+        education_time                :"",
+        academic_credentials          :"",
+        come_to_china                 :"",
+        disability_list               :[],
+        chinese_number                :"",
+        learning_chinese_age          :"",
+        learn_chinese_time            :"",
+        // age_list:[],
+        oral_age                      :"",
+        talk_well_age                 :"",
+        learning_read_age             :"",
+        read_well_age                 :"",
+        chinese_country               :"",
+        chinese_country_month :"",
+        chinese_country_year:"",
+        chinese_family_month:"",
+        chinese_family_year:"",
+        chinese_family                :"",
+        chinese_school_month:"",
+        chinese_school_year:"",
+        chinese_school                :"",
+        chinese_oral                  :"",
+        understand_chinese_oral       :"",
+        read_chinese                  :"",
+        promote :[],
+        // promote_friend_interaction    :"",
+        // promote_family_interaction    :"",
+        // promote_app_self_learning     :"",
+        // promote_watch_tv              :"",
+        // promote_listen_radio          :"",
+        frequency :[],
+        // frequency_friend_interaction  :"",
+        // frequency_family_interaction  :"",
+        // frequency_app_self_learning   :"",
+        // frequency_watch_tv            :"",
+        // frequency_listen_radio        :"",
+        oral_accent                   :"",
+        others_feeling_oral_accent    :"",
         region: "",
         date1: "",
         date2: "",
@@ -373,10 +548,10 @@ export default {
         resource: "",
         last_year: "",
         desc: "",
-        chinese_number: "",
-        learn_chinese_age: "",
-        learn_chinese_time: "",
-        chinese_oral:"",
+        // chinese_number: "",
+        // learn_chinese_age: "",
+        // learn_chinese_time: "",
+        // chinese_oral: "",
       },
       value1: [],
       value2: [],
@@ -394,17 +569,19 @@ export default {
   },
   methods: {
     onSubmit() {
+      console.log(this.form);
       console.log("submit!");
+      window.location.href = '/rule'; 
     },
     addOption() {
-      this.value6.push({
+      this.form.map_cultural_identity_percent.push({
         key: "",
         val: 0,
       });
     },
     removeOption() {
-      if (this.value6.length > 0) {
-        this.value6.pop();
+      if (this.form.map_cultural_identity_percent.length > 1) {
+        this.form.map_cultural_identity_percent.pop();
       }
     },
   },

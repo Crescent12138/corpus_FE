@@ -13,7 +13,7 @@
         <li>我已经仔细阅读了本知情同意书，并且研究者也将实验目的，内容，风险及受益情况向我做了详细的解释说明，对我询问的问题也给予了解答，我已经了解了此项实验，我自愿参与此项实验。</li>
       </ul>
       <div class="right">
-        <el-button type="success">同意</el-button>
+        <el-button type="success" @click="agree">同意</el-button>
         </div>
     </div>
   </div>
@@ -25,6 +25,7 @@ export default {
     agree() {
       // 在此处可以添加逻辑，表示用户已同意阅读须知
       console.log("用户已同意阅读须知");
+      window.location.href = '/formDate'; 
     }
   }
 }

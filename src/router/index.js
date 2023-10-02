@@ -31,6 +31,20 @@ const router = createRouter({
       path: '/formDate',
       name: 'formDate',
       component: () => import('../views/FormDate.vue')
+    },
+    {
+      path: '/Corpus',
+      name: 'Corpus',
+      component: () => import('../views/Corpus.vue')
+    },
+    {
+      path: '/rule',
+      name: 'Rule',
+      component: () => import('../views/Rule.vue')
+    },{
+      path:'/paper',
+      name: 'paper',
+      component: () => import('../views/CorpusPaper.vue')
     }
   ]
 })
